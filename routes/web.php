@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Category;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SubCategoryController;
 
 /*
@@ -111,7 +112,24 @@ Route::prefix('users')->group(function(){
         Route::post('ship/store', [ProductController::class, 'ShipStoreProduct'])->name('product-ship-store');
 
         Route::get('shipped/order', [ProductController::class, 'Orders'])->name('shipped-product');
+
+        Route::get('order/edit/{id}', [ProductController::class, 'EditOrder'])->name('order.edit');
          
+        });
+
+            // Admin Reports Routes 
+    Route::prefix('reports')->group(function(){
+
+        Route::get('/view', [ReportController::class, 'ReportView'])->name('all-reports');
+    
+        Route::post('/search/by/date', [ReportController::class, 'ReportByDate'])->name('search-by-date');
+    
+        Route::post('/search/by/month', [ReportController::class, 'ReportByMonth'])->name('search-by-month');
+    
+        Route::post('/search/by/year', [ReportController::class, 'ReportByYear'])->name('search-by-year');
+    
+        
+        
         });
 
 

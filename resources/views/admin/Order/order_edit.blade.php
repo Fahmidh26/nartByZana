@@ -13,7 +13,7 @@
 		 <!-- Basic Forms -->
 		  <div class="box">
 			<div class="box-header with-border">
-			  <h3 class="box-title">Enter Order Details </h3>
+			  <h3 class="box-title">Edit Details </h3>
 			   
 			</div>
 			<!-- /.box-header -->
@@ -23,9 +23,9 @@
 				
   <form method="post" action="	{{ route('product-ship-store') }}" >
 		 	@csrf
-			<input type="hidden" name="pro_id" value="{{ $products->id }}">
-			<input type="hidden" name="quantity" value="{{ $products->product_qty }}">
-			<input type="hidden" name="selling_price" value="{{ $products->selling_price }}">
+			<input type="hidden" name="order_id" value="{{ $orders->id }}">
+			{{-- <input type="hidden" name="quantity" value="{{ $products->product_qty }}">
+			<input type="hidden" name="selling_price" value="{{ $products->selling_price }}"> --}}
 					  <div class="row">
 	<div class="col-12">	
 
@@ -33,7 +33,7 @@
 		<div class="row"> <!-- start 1st row  -->
 			<div class="col-md-4">
 				<div class="">
-					<img src="{{ asset($products->product_thambnail) }}" style="height: 150px; width: 150px;">
+					{{-- <img src="{{ asset($orders->$product->product_thambnail) }}" style="height: 150px; width: 150px;"> --}}
 				  </div> 		
 			</div> <!-- end col md 4 -->
 
@@ -43,7 +43,7 @@
 				<div class="form-group">
 					<h5>Customer Name <span class="text-danger">*</span></h5>
 					<div class="controls">
-			 <input type="text" name="customer_name" class="form-control" required="">
+			 <input type="text" name="customer_name" class="form-control" required="" value="{{$orders->customer_name}}">
 			 @error('customer_name') 
 			 <span class="text-danger">{{ $message }}</span>
 			 @enderror
@@ -81,7 +81,7 @@
 					<h5>Address<span class="text-danger">*</span></h5>
 					<div class="controls">
 			<textarea name="address" id="textarea" class="form-control" required>
-				{!! $products->address !!}
+				
 			</textarea>     
 					  </div>
 				</div>
@@ -111,7 +111,7 @@
 	  <div class="form-group">
 			<h5>Product Code <span class="text-danger">*</span></h5>
 			<div class="controls">
-  <input type="text" name="product_code" class="form-control" required="" value="{{ $products->product_code }}">
+  {{-- <input type="text" name="product_code" class="form-control" required="" value="{{ $products->product_code }}"> --}}
      @error('product_code') 
 	 <span class="text-danger">{{ $message }}</span>
 	 @enderror
@@ -152,7 +152,7 @@
 				<div class="form-group">
 					<h5>Product Name <span class="text-danger">*</span></h5>
 					<div class="controls">
-			 <input type="text" name="product_name" class="form-control" required="" value="{{ $products->product_name }}">
+			 <input type="text" name="product_name" class="form-control" required="" value="{{ $orders->$product->product_name }}">
 			 @error('product_name') 
 			 <span class="text-danger">{{ $message }}</span>
 			 @enderror
@@ -163,7 +163,7 @@
 				<div class="form-group">
 					<h5>Product Color<span class="text-danger">*</span></h5>
 					<div class="controls">
-			 <input type="text" name="color" class="form-control" data-role="tagsinput" required="">
+			 <input type="text" name="color" class="form-control" value="{{$orders->color}}" data-role="tagsinput" required="">
 			 @error('color') 
 			 <span class="text-danger">{{ $message }}</span>
 			 @enderror
@@ -175,7 +175,7 @@
 				<div class="form-group">
 					<h5>Product Size <span class="text-danger">*</span></h5>
 					<div class="controls">
-			 <input type="text" name="size" class="form-control" data-role="tagsinput" >
+			 <input type="text" name="size" class="form-control" data-role="tagsinput" value="{{$orders->size}}" >
 			 @error('size') 
 			 <span class="text-danger">{{ $message }}</span>
 			 @enderror
@@ -186,7 +186,7 @@
 				<div class="form-group">
 					<h5>Product Quantity <span class="text-danger">*</span></h5>
 					<div class="controls">
-			 <input type="text" name="qty" class="form-control" >
+			 <input type="text" name="qty" class="form-control" value="{{$orders->qty}}">
 			 @error('qty') 
 			 <span class="text-danger">{{ $message }}</span>
 			 @enderror

@@ -23,11 +23,15 @@ return new class extends Migration
             $table->string('product_code');
             $table->string('product_name');
             $table->string('payment_type');
+            $table->string('amount');
             $table->string('qty');
             $table->string('color');
             $table->string('size');
-            $table->string('delivery_charge');
-            $table->string('delivery_company');
+            $table->string('delivery_charge')->nullable();
+            $table->string('delivery_company')->nullable();
+            $table->string('order_date')->nullable();
+            $table->string('order_month')->nullable();
+            $table->string('order_year')->nullable();
             $table->timestamps();
         });
     }

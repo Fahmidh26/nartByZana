@@ -38,7 +38,7 @@
           </ul>
         </li> 
 
-        {{-- <li class="treeview">
+        <li class="treeview">
           <a href="#">
             <i data-feather="message-circle"></i>
             <span>Product</span>
@@ -50,10 +50,9 @@
             <li><a href="{{ route('product.add') }}"><i class="ti-more"></i>Add Product</a></li>
             <li><a href="{{ route('manage-product') }}"><i class="ti-more"></i>Manage Product</a></li>
           </ul>
-        </li>  --}}
+        </li>  
 
-
-        {{-- <li class="treeview">
+         <li class="treeview">
           <a href="#">
             <i data-feather="message-circle"></i>
             <span>Order</span>
@@ -64,11 +63,25 @@
           <ul class="treeview-menu">
             <li><a href="{{ route('shipped-product') }}"><i class="ti-more"></i>View Orders</a></li>
           </ul>
-        </li>  --}}
+        </li> 
+
+
+        <li class="treeview">
+          <a href="#">
+            <i data-feather="message-circle"></i>
+            <span>Reports</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ route('all-reports') }}"><i class="ti-more"></i>View Reports</a></li>
+          </ul>
+        </li> 
 		  
         
 
-        <li class="header nav-small-cap">User Interface</li>
+        {{-- <li class="header nav-small-cap">User Interface</li>
 		
 		  
 		  
@@ -79,7 +92,7 @@
           </a>
         </li> 
         
-      </ul>
+      </ul> --}}
     </section>
 	
   </aside>

@@ -257,29 +257,67 @@ class ProductController extends Controller
 		return view('admin.Order.ship',compact('products'));
 	}
 
+	public function EditOrder($id){
+
+		$orders = Order::findOrFail($id);
+		// $product = Product::where('product_id',$id)->get();
+		return view('admin.Order.order_edit',compact('orders'));
+
+	}
+
 	public function ShipStoreProduct(Request $request){
 		
 		$proId = $request->pro_id;
 		$preQty = $request->quantity;
 		$newQty = $request->qty;
+		$sellingPrice = $request->selling_price;
+		$amount = $newQty * $sellingPrice;
 
-		Order::insert([
+		if ($request->has('delivery_company') && !empty($request->input('delivery_company'))) {
+			Order::insert([
 
-			'product_id' => $request->pro_id,
-			'invoice_id' => 'NBZ'.mt_rand(10000000,99999999),
-      		'size' => $request->size,
-      		'color' => $request->color,
-			'qty' => $request->qty,
-			'address' => $request->address,
-			'customer_name' => $request->customer_name,
-			'phone_no' => $request->phone_no,
-			'payment_type' => $request->payment_type,
-			'delivery_company' => $request->delivery_company,
-			'delivery_charge' => $request->delivery_charge,
-			'created_at' => Carbon::now(),   
-	
-			]);
+				'product_id' => $request->pro_id,
+				'invoice_id' => 'NBZ'.mt_rand(10000000,99999999),
+				'size' => $request->size,
+				'color' => $request->color,
+				'qty' => $request->qty,
+				'amount' => $amount,
+				'address' => $request->address,
+				'customer_name' => $request->customer_name,
+				'phone_no' => $request->phone_no,
+				'payment_type' => $request->payment_type,
+				'delivery_company' => $request->delivery_company,
+				'delivery_charge' => $request->delivery_charge,
+				'order_date' => Carbon::now()->format('d F Y'),
+				 'order_month' => Carbon::now()->format('F'),
+				 'order_year' => Carbon::now()->format('Y'),
+				'created_at' => Carbon::now(),   
+		
+				]);
+		} else {
+			Order::insert([
 
+				'product_id' => $request->pro_id,
+				'invoice_id' => 'NBZ'.mt_rand(10000000,99999999),
+				'size' => $request->size,
+				'color' => $request->color,
+				'qty' => $request->qty,
+				'amount' => $amount,
+				'address' => $request->address,
+				'customer_name' => $request->customer_name,
+				'phone_no' => $request->phone_no,
+				'payment_type' => $request->payment_type,
+				// 'delivery_company' => $request->delivery_company,
+				// 'delivery_charge' => $request->delivery_charge,
+				// 'order_date' => Carbon::now()->format('d F Y'),
+				//  'order_month' => Carbon::now()->format('F'),
+				//  'order_year' => Carbon::now()->format('Y'),
+				'created_at' => Carbon::now(),   
+		
+				]);
+		}
+		
+		
 			Product::findOrFail($proId)->update(['product_qty' => $preQty - $newQty]);
 
 
@@ -288,7 +326,75 @@ class ProductController extends Controller
 			'alert-type' => 'success'
 		);
 
+		// return redirect()->route('manage-product')->with($notification);
+		return redirect()->back()->with($notification);
 
+	} // end method
+
+
+
+
+
+	public function UpdateOrder(Request $request){
+		
+		$proId = $request->pro_id;
+		$preQty = $request->quantity;
+		$newQty = $request->qty;
+		$sellingPrice = $request->selling_price;
+		$amount = $newQty * $sellingPrice;
+
+		if ($request->has('delivery_company') && !empty($request->input('delivery_company'))) {
+			Order::insert([
+
+				'product_id' => $request->pro_id,
+				'invoice_id' => 'NBZ'.mt_rand(10000000,99999999),
+				'size' => $request->size,
+				'color' => $request->color,
+				'qty' => $request->qty,
+				'amount' => $amount,
+				'address' => $request->address,
+				'customer_name' => $request->customer_name,
+				'phone_no' => $request->phone_no,
+				'payment_type' => $request->payment_type,
+				'delivery_company' => $request->delivery_company,
+				'delivery_charge' => $request->delivery_charge,
+				'order_date' => Carbon::now()->format('d F Y'),
+				 'order_month' => Carbon::now()->format('F'),
+				 'order_year' => Carbon::now()->format('Y'),
+				'created_at' => Carbon::now(),   
+		
+				]);
+		} else {
+			Order::insert([
+
+				'product_id' => $request->pro_id,
+				'invoice_id' => 'NBZ'.mt_rand(10000000,99999999),
+				'size' => $request->size,
+				'color' => $request->color,
+				'qty' => $request->qty,
+				'amount' => $amount,
+				'address' => $request->address,
+				'customer_name' => $request->customer_name,
+				'phone_no' => $request->phone_no,
+				'payment_type' => $request->payment_type,
+				// 'delivery_company' => $request->delivery_company,
+				// 'delivery_charge' => $request->delivery_charge,
+				// 'order_date' => Carbon::now()->format('d F Y'),
+				//  'order_month' => Carbon::now()->format('F'),
+				//  'order_year' => Carbon::now()->format('Y'),
+				'created_at' => Carbon::now(),   
+		
+				]);
+		}
+		
+		
+			Product::findOrFail($proId)->update(['product_qty' => $preQty - $newQty]);
+
+
+       $notification = array(
+			'message' => 'Order Shipped Successfully',
+			'alert-type' => 'success'
+		);
 
 		// return redirect()->route('manage-product')->with($notification);
 		return redirect()->back()->with($notification);
